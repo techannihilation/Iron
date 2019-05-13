@@ -58,6 +58,7 @@ return {
 		turninplacespeedlimit = 0.825,
 		turnrate = 1133,
 		upright = true,
+		usepiececollisionvolumes = true,
 		workertime = 300,
 		buildoptions = {
 			[1] = "corsolar",

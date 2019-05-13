@@ -7,15 +7,15 @@ local options={
 	   type   = "section",
 	},
     {
-       key="bar_modes",
-       name="BAR - Game Modes",
-       desc="BAR - Game Modes",
+       key="iron_modes",
+       name="IRON - Game Modes",
+       desc="IRON - Game Modes",
        type="section",
     },
     {
-       key="bar_options",
-       name="BAR - Options",
-       desc="BAR - Options",
+       key="iron_options",
+       name="IRON - Options",
+       desc="IRON - Options",
        type="section",
     },
     {
@@ -30,7 +30,7 @@ local options={
 		desc   = "Show the Beta release menu ingame (single player only)",
 		type   = "list",
 		def    = "on",
-		section= "bar_modes",
+		section= "iron_modes",
 		items={
 			{key="on", name="on", desc="Display the beta release menu at game start"},
 			{key="in use", name="in use", desc="Display the beta release menu at game end"},
@@ -43,7 +43,7 @@ local options={
 		desc="What it takes to eliminate a team",
 		type="list",
 		def="com",
-		section="bar_modes",
+		section="iron_modes",
 		items={
 			{key="neverend", name="None", desc="Teams are never eliminated"},
 			{key="com", name="Kill all enemy Commanders", desc="When a team has no Commanders left, it loses"},
@@ -56,7 +56,7 @@ local options={
         desc   = 'At armageddon every immobile unit is destroyed and you fight to the death with what\'s left! (0=off)',
         type   = 'number',
         def    = true,
-        section= 'bar_modes',
+        section= 'iron_modes',
         def    = 0,
         min    = 0,
         max    = 120,
@@ -68,7 +68,7 @@ local options={
 		desc   = "Units with no player control are removed/destroyed \nUse FFA spawning mode",
 		type   = "bool",
 		def    = false,
-		section= "bar_modes",
+		section= "iron_modes",
     },
     {
         key    = 'mo_coop',
@@ -76,14 +76,14 @@ local options={
         desc   = 'Adds extra commanders to id-sharing teams, 1 com per player',
         type   = 'bool',
         def    = false,
-        section= 'bar_modes',
+        section= 'iron_modes',
     },
     {
       key    = "shareddynamicalliancevictory",
       name   = "Dynamic Ally Victory",
       desc   = "Ingame alliance should count for game over condition.",
       type   = "bool",
-	  section= 'bar_modes',
+	  section= 'iron_modes',
       def    = false,
     },
     {
@@ -92,7 +92,7 @@ local options={
 		desc   = "Commanders survive DGuns and other commanders explosions",
 		type   = "bool",
 		def    = false,
-		section= "bar_modes",
+		section= "iron_modes",
     },
 	{
 		key    = "mo_comgate",
@@ -100,7 +100,7 @@ local options={
 		desc   = "Commanders warp in at gamestart with a shiny teleport effect",
 		type   = "bool",
 		def    = false,
-		section= "bar_others",
+		section= "iron_others",
     },
     {
 		key="mo_transportenemy",
@@ -108,7 +108,7 @@ local options={
 		desc="Toggle which enemy units you can kidnap with an air transport",
 		type="list",
 		def="none",
-		section="bar_options",
+		section="iron_options",
 		items={
 			{key="notcoms", name="All But Commanders", desc="Only commanders are immune to napping"},
 			{key="none", name="Disallow All", desc="No enemy units can be napped"},
@@ -120,7 +120,7 @@ local options={
         desc   = "Tells each team the total number of commanders alive in enemy teams",
         type   = "bool",
         def    = false,
-        section= "bar_others",
+        section= "iron_others",
     },
     {
         key    = "mo_freefusion",
@@ -128,7 +128,7 @@ local options={
         desc   = "Commanders can build free fusion reactors",
         type   = "bool",
         def    = false,
-        section= "bar_others",
+        section= "iron_others",
     },
     {
         key    = 'FixedAllies',
@@ -136,7 +136,7 @@ local options={
         desc   = 'Disables the possibility of players to dynamically change alliances ingame',
         type   = 'bool',
         def    = true,
-        section= "bar_others",
+        section= "iron_others",
     },
     {
 		key    = "mo_no_close_spawns",
@@ -144,7 +144,7 @@ local options={
 		desc   = "Prevents players startpoints being placed close together (on large enough maps)",
 		type   = "bool",
 		def    = true,
-		section= "bar_options",
+		section= "iron_options",
     },
     {
 		key    = "mo_newbie_placer",
@@ -152,7 +152,7 @@ local options={
 		desc   = "Chooses a startpoint and a random faction for all rank 1 accounts (online only)",
 		type   = "bool",
 		def    = false,
-		section= "bar_options",
+		section= "iron_options",
     },
     
     -- below here are the chickens options
@@ -162,7 +162,7 @@ local options={
 		desc="Defend against hordes of attacking Chickens!",
 		type= "bool",
 		def= false,
-		section="bar_modes",
+		section="iron_modes",
 	},
 	{
 		key="mo_chickenstart",

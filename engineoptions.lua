@@ -28,9 +28,9 @@
 local options =
 {
   {
-    key="bar_others",
-    name="BAR - Other Settings",
-    name="BAR - Other Settings",
+    key="iron_others",
+    name="IRON - Other Settings",
+    name="IRON - Other Settings",
     type="section",
   },
   
@@ -43,7 +43,7 @@ local options =
     min    = 1,
     max    = 10000, --- engine caps at lower limit if more than 3 team are ingame
     step   = 1,  -- quantization is aligned to the def value, (step <= 0) means that there is no quantization
-    section= "bar_options",
+    section= "iron_options",
 
   },
   {
@@ -52,7 +52,7 @@ local options =
     desc    = "Switch Pathfinding System",
     type    = "list",
     def     = "normal",
-    section = "bar_others",
+    section = "iron_others",
 	items={
 	  {key="normal", name="Normal", desc="Spring vanilla pathfinder"},
 	  {key="qtpfs", name="QuadTree", desc="Experimental quadtree based pathfinder"},
@@ -116,7 +116,7 @@ local options =
     desc   = 'Prevents the map shape from being changed by weapons',
     type   = 'bool',
     def    = false,
-    section= "bar_options",
+    section= "iron_options",
 
   },
 --[[
