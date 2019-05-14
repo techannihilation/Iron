@@ -145,7 +145,7 @@ local pieceCollisionVolume = {            --per piece collision volume definitio
     },        
     [UnitDefNames["corcom"].id] = {
             ["8"]={32,52,20,0,-7,0,2,1},
-            trunk=1
+            trunk=8
     }      
 }
 
@@ -155,21 +155,20 @@ local dynamicPieceCollisionVolume = {   --dynamic per piece collision volume def
             ["1"]={55,30,55,0,3,-2,0,0},
             ["5"]={11,11,47,0,0,3,1,2},
             offsets={0,0,0},
-            trunk=1
         },
         off = {
             ["1"]={50,10,50,0,3,0,2,0},
+            trunk = 1
         },
     },
     [UnitDefNames["corvipe"].id] = {
         on = {
             ["1"]={40,12,30,0,12,0,2,0},
             ["6"]={25,46,25,0,25,0,1,1},
-            trunk=1,
-
         },
         off = {
             ["1"]={43,43,43,0,-2,0,0,1},
+            trunk = 1
         },
     }
 }
