@@ -38,7 +38,7 @@ local CONFIG_FILENAME    = LUAUI_DIRNAME .. 'Config/' .. Game.modShortName:upper
 local VERSION_FILENAME     = LUAUI_DIRNAME .. 'Config/' .. Game.modShortName:upper() .. '_version.lua'
 local WIDGET_DIRNAME     = LUAUI_DIRNAME .. 'Widgets/'
 
-local HANDLER_BASENAME = "barwidgets.lua"
+local HANDLER_BASENAME = "widgets.lua"
 local SELECTOR_BASENAME = 'selector.lua'
 
 
