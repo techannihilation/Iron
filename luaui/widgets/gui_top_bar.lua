@@ -18,7 +18,9 @@ local showConversionSlider = true
 local bladeSpeedMultiplier = 0.22
 
 local comDefs = {
+ --Core
   [UnitDefNames["corcom"].id] = true,
+ --Arm 
   [UnitDefNames["armcom"].id] = true,
 }
 
