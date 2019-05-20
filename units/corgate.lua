@@ -38,6 +38,8 @@ return {
 			faction = "core",
 			normalmaps = "yes",
 			normaltex = "unittextures/Core_normal.dds",
+						shield_power = 10000,
+			shield_radius = 600,
 		},
 		featuredefs = {
 			dead = {
@@ -133,7 +135,6 @@ return {
 					repulser = true,
 					smart = true,
 					startingpower = 1800,
-					visible = true,
 					visiblehitframes = 70,
 					badcolor = {
 						[1] = 1,

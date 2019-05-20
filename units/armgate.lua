@@ -38,6 +38,8 @@ return {
 			faction = "arm",
 			normalmaps = "yes",
 			normaltex = "unittextures/Arm_normals.dds",
+			shield_power = 6500,
+			shield_radius = 500,
 		},
 		featuredefs = {
 			dead = {
@@ -133,7 +135,6 @@ return {
 					repulser = true,
 					smart = true,
 					startingpower = 2500,
-					visible = true,
 					visiblehitframes = 70,
 					badcolor = {
 						[1] = 1,
