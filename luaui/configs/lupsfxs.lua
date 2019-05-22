@@ -11,6 +11,7 @@ groundFlashBlue = {
   texture    = "bitmaps/GPL/Lups/groundflash.png",
   colormap   = { {0.5, 0.5, 1.0, 0.3},{0.5, 0.5, 1.0, 0.4},{0.5, 0.5, 1.0, 0.4},{0.5, 0.5, 1.0, 0.3}, },
   repeatEffect = true,
+  priority   = 2
 }
 
 groundFlashGreen = {
@@ -19,6 +20,7 @@ groundFlashGreen = {
   texture    = "bitmaps/GPL/Lups/groundflash.png",
   colormap   = { {0.6, 1.0, 0.6, 0.2},{0.6, 1.0, 0.6, 0.25},{0.6, 1.0, 0.6, 0.25},{0.6, 1.0, 0.6, 0.2}, },
   repeatEffect = true,
+  priority=2
 }
 
 groundFlashCorestor = {
@@ -27,6 +29,7 @@ groundFlashCorestor = {
   texture    = "bitmaps/GPL/Lups/gf_corestor.png",
   colormap   = { {0.9, 0.9, 0.0, 0.15},{0.9, 0.9, 0.0, 0.20},{0.9, 0.9, 0.0, 0.20},{0.9, 0.9, 0.0, 0.15}, },
   repeatEffect = true,
+  priority=2
 }
 
 groundFlashArmestor = {
@@ -35,6 +38,7 @@ groundFlashArmestor = {
   texture    = "bitmaps/GPL/Lups/gf_armestor.png",
   colormap   = { {0.9, 0.9, 0.0, 0.2},{0.9, 0.9, 0.0, 0.3},{0.9, 0.9, 0.0, 0.3},{0.9, 0.9, 0.0, 0.2}, },
   repeatEffect = true,
+  priority=2
 }
 
 groundFlashJuno = {
@@ -43,6 +47,7 @@ groundFlashJuno = {
   texture    = "bitmaps/GPL/Lups/groundflash.png",
   colormap   = { {0.55,0.55,0.9, 0.1}, {0.55,0.55,0.9, 0.12},{0.55,0.55,0.9, 0.12},{0.55,0.55,0.9, 0.1}, },
   repeatEffect = true,
+  priority=2
 }
 
 ----------------------------------------------------------------------------
@@ -56,7 +61,8 @@ cafusShieldSphere = {
   size=32,
   colormap1 = { {0.9, 0.9, 1, 0.75},{0.9, 0.9, 1, 1.0},{0.9, 0.9, 1, 1.0},{0.9, 0.9, 1, 0.75} },
   colormap2 = { {0.2, 0.2, 1, 0.7},{0.2, 0.2, 1, 0.75},{0.2, 0.2, 1, 0.75},{0.2, 0.2, 1, 0.7} },
-  repeatEffect=true
+  repeatEffect = true,
+  priority=2
 }
 
 corfusShieldSphere = {
@@ -66,7 +72,8 @@ corfusShieldSphere = {
   size=24,
   colormap1 = { {0.9, 0.9, 1, 0.75},{0.9, 0.9, 1, 1.0},{0.9, 0.9, 1, 1.0},{0.9, 0.9, 1, 0.75} },
   colormap2 = { {0.2, 0.6, 0.2, 0.4},{0.2, 0.6, 0.2, 0.45},{0.2, 0.6, 0.2, 0.45},{0.2, 0.6, 0.2, 0.4} },
-  repeatEffect=true
+  repeatEffect = true,
+  priority=2
 }
 
 corgateShieldSphere = {
@@ -76,7 +83,8 @@ corgateShieldSphere = {
   size= 11,
   colormap1 = { {0.9, 0.9, 1, 0.75},{0.9, 0.9, 1, 1.0},{0.9, 0.9, 1, 1.0},{0.9, 0.9, 1, 0.75} },
   colormap2 = { {0.2, 0.6, 0.2, 0.4},{0.2, 0.6, 0.2, 0.45},{0.2, 0.6, 0.2, 0.45},{0.2, 0.6, 0.2, 0.4} },
-  repeatEffect=true
+  repeatEffect = true,
+  priority=2
 }
 
 cjunoShieldSphere = {
@@ -86,7 +94,8 @@ cjunoShieldSphere = {
   size=16,
   colormap1 = { {0.9, 0.9, 1, 0.75},{0.9, 0.9, 1, 1.0},{0.9, 0.9, 1, 1.0},{0.9, 0.9, 1, 0.75} },
   colormap2 = { {0.8, 0.2, 0.2, 0.4},{0.8, 0.2, 0.2, 0.45},{0.9, 0.2, 0.2, 0.45},{0.9, 0.1, 0.2, 0.4} },
-  repeatEffect=true
+  repeatEffect = true,
+  priority=2
 }
 
 armgateShieldSphere = {
@@ -96,7 +105,8 @@ armgateShieldSphere = {
   size=16,
   colormap1 = { {0.9, 0.9, 1, 0.75},{0.9, 0.9, 1, 1.0},{0.9, 0.9, 1, 1.0},{0.9, 0.9, 1, 0.75} },
   colormap2 = { {0.2, 0.8, 0.2, 0.4},{0.2, 0.8, 0.2, 0.45},{0.2, 0.9, 0.2, 0.45},{0.1, 0.9, 0.2, 0.4} },
-  repeatEffect=true
+  repeatEffect = true,
+  priority=2
 }
 
 ----------------------------------------------------------------------------
@@ -111,7 +121,9 @@ cormakrEffect = {
   colormap   = { {0.8, 0.8, 0.5, 0.01} },
   onActive   = true,
   texture    = 'bitmaps/flare.TGA',
+  priority   = 2
   }
+
   
 ----------------------------------------------------------------------------
 -- SimpleParticles ---------------------------------------------------------
@@ -138,6 +150,7 @@ plasmaball_aafus = {
   texture      = 'bitmaps/lightningball.png',
   count        = 3,
   repeatEffect = true,
+  priority=2
   }
   
 plasmaball_cafus = {
@@ -161,6 +174,7 @@ plasmaball_cafus = {
   texture      = 'bitmaps/lightningball.png',
   count        = 3,
   repeatEffect = true,
+  priority=2
   }
   
 shield_armgate = {
@@ -180,6 +194,7 @@ shield_armgate = {
   texture      = 'bitmaps/gpl/lups/groundflash.tga',
   count        = 6,
   repeatEffect = true,
+  priority=2
   }
   
 shield_corgate = {
@@ -199,4 +214,5 @@ shield_corgate = {
   texture      = 'bitmaps/gpl/lups/groundflash.tga',
   count        = 6,
   repeatEffect = true,
+  priority=2
   }

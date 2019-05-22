@@ -1,282 +1,230 @@
 -- note that the order of the MergeTable args matters for nested tables (such as colormaps)!
 
-local presets = {
-    }
-
 effectUnitDefs = {
 
-  [UnitDefNames["cjuno"].id] = {
-    {class='ShieldSphere',options=cjunoShieldSphere},
-    {class='GroundFlash',options=groundFlashJuno},
-  },
-  [UnitDefNames["ajuno"].id] = {
-    {class='ShieldSphere',options=cjunoShieldSphere},
-    {class='GroundFlash',options=groundFlashJuno},
-  },
-  [UnitDefNames["cormakr"].id] = {
+  --// METALMAKERS //--------------------------
+  cormakr={
     {class='StaticParticles',options=cormakrEffect},
+    {class='ShieldJitter',options={layer=-16, life=math.huge, priority=5, pos={0,24,0}, size=7, precision=22, repeatEffect=true}},
   },
-  [UnitDefNames["corfmkr"].id] = {
+  corfmkr={
     {class='StaticParticles',options=cormakrEffect},
+    {class='ShieldJitter',options={layer=-16, life=math.huge, priority=5, pos={0,24,0}, size=7, precision=22, repeatEffect=true}},
   },
-  
+
   --// FUSIONS //--------------------------
-  [UnitDefNames["cafus"].id] = {
+  cafus={
     {class='ShieldSphere',options=cafusShieldSphere},
     {class='ShieldJitter',options={layer=-16, life=math.huge, pos={0,60,0}, size=33, precision=22, repeatEffect=true}},
     {class='GroundFlash',options=groundFlashBlue},
   },
-  [UnitDefNames["corfus"].id] = {
+  corfus={
     {class='ShieldSphere',options=corfusShieldSphere},
     {class='ShieldJitter',options={life=math.huge, pos={0,50,0}, size=32, precision=22, repeatEffect=true}},
     {class='GroundFlash',options=groundFlashGreen},
   },
-  [UnitDefNames["aafus"].id] = {
+  aafus={
     {class='SimpleParticles2', options=MergeTable({pos={0,76,0}, delay=0, lifeSpread=30},plasmaball_aafus)},
     {class='SimpleParticles2', options=MergeTable({pos={0,76,0}, delay=40, lifeSpread=30},plasmaball_aafus)},
     {class='ShieldJitter',options={layer=-16, life=math.huge, pos={0,76,0}, size=30, precision=22, repeatEffect=true}},
     {class='GroundFlash',options=groundFlashBlue},
   },
-  [UnitDefNames["corgate"].id] = {
-    {class='ShieldSphere',options=corgateShieldSphere},
-    {class='SimpleParticles2', options=MergeTable({pos={0,42,0}, lifeSpread=300},shield_corgate)},
-    --{class='ShieldJitter',options={life=math.huge, pos={0,42,0}, size=20, precision=2, repeatEffect=true}},
-    {class='GroundFlash',options=groundFlashGreen},
-  },    
-  [UnitDefNames["armgate"].id] = {
-    {class='ShieldSphere',options=armgateShieldSphere},
-    {class='SimpleParticles2', options=MergeTable({pos={0,25,-5}, lifeSpread=300},shield_armgate)},
-    {class='GroundFlash',options=groundFlashGreen},
-  },    
-  [UnitDefNames["cjuno"].id] = {
-    {class='ShieldSphere',options=cjunoShieldSphere},
-    {class='ShieldJitter',options={life=math.huge, pos={0,72,0}, size=20, precision=22, repeatEffect=true}},
+
+  --// SHIELDS //--------------------------
+  armgate={
+    {class='ShieldJitter', options={delay=0,life=math.huge, priority=3, pos={0,20,0.0}, size=500, precision=0, noIconDraw=true, strength = 0.001, repeatEffect=true}},
+  },
+  armfgate={
+    {class='ShieldJitter', options={delay=0,life=math.huge, priority=3, pos={0,20,0.0}, size=600, precision=0, noIconDraw=true, strength = 0.001, repeatEffect=true}},
+  },   
+  corgate={
+    {class='ShieldJitter', options={delay=0,life=math.huge, priority=3, pos={0,20,0.0}, size=500, precision=0, noIconDraw=true, strength = 0.001, repeatEffect=true}},
+  }, 
+  corfgate={
+    {class='ShieldJitter', options={delay=0,life=math.huge, priority=3, pos={0,20,0.0}, size=600, precision=0, noIconDraw=true, strength = 0.001, repeatEffect=true}},
   },
 
     --// ENERGY STORAGE //--------------------
-  [UnitDefNames["corestor"].id] = {
+  corestor={
     {class='GroundFlash',options=groundFlashCorestor},
   },
-  [UnitDefNames["armestor"].id] = {
+  armestor={
     {class='GroundFlash',options=groundFlashArmestor},
   },
 
+    --// OTHER //--------------------------
+  cjuno={
+    {class='ShieldSphere',options=cjunoShieldSphere},
+    {class='GroundFlash',options=groundFlashJuno},
+  },
+  ajuno={
+    {class='ShieldSphere',options=cjunoShieldSphere},
+    {class='GroundFlash',options=groundFlashJuno},
+  },
+--]]
   --// PLANES still need to do work here //----------------------------
   
   --T1 ARM 
-  [UnitDefNames["armatlas"].id] = {
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=7, length=30, piece="thrust", onActive=true}},
+  armatlas={
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=7, length=30, piece="thrust", onActive=true, onActive=true, noIconDraw=true}},
   },
-  [UnitDefNames["armkam"].id] = {
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=4, length=47, piece="thrusta", onActive=true, emitVector = {0,1,0}}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=4, length=47, piece="thrustb", onActive=true, emitVector = {0,1,0}}},
+  armkam={
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=4, length=47, piece="thrusta", onActive=true, priority=2, noIconDraw=true, emitVector={0,1,0}}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=4, length=47, piece="thrustb", onActive=true, priority=2, noIconDraw=true, emitVector={0,1,0}}},
   },
-  [UnitDefNames["armthund"].id] = {
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=2, length=47, piece="thrust1", onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=2, length=47, piece="thrust2", onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=2, length=47, piece="thrust3", onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=2, length=47, piece="thrust4", onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=5, length=60, piece="thrustc", onActive=true}},
+  armthund={
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=2, length=47, piece="thrust1", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=2, length=47, piece="thrust2", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=2, length=47, piece="thrust3", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=2, length=47, piece="thrust4", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=5, length=60, piece="thrustc", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armpeep"].id] = {
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=5, length=30, piece="jet1", onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=5, length=30, piece="jet2", onActive=true}},
+  armpeep={
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=5, length=30, piece="jet1", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=5, length=30, piece="jet2", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armfig"].id] = {
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=6, length=45, piece="thrust", onActive=true}},
+  armfig={
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=6, length=45, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armca"].id] = {
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=8, length=30, piece="thrust", onActive=true}},
+  armca={
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=8, length=30, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
   
   --T1 CORE
-  [UnitDefNames["corshad"].id] = {
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=27, piece="thrusta1", onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=27, piece="thrusta2", onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=6, length=40, piece="thrustb1", onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=6, length=40, piece="thrustb2", onActive=true}},
+  corshad={
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=27, piece="thrusta1", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=27, piece="thrusta2", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=6, length=40, piece="thrustb1", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=6, length=40, piece="thrustb2", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["corvalk"].id] = {
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=8, length=16, piece="thrust1", emitVector= {0,1,0},onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=8, length=16, piece="thrust3", emitVector= {0,1,0}, onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=8, length=16, piece="thrust2", emitVector= {0,1,0}, onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=8, length=16, piece="thrust4", emitVector= {0,1,0}, onActive=true}},
+  corvalk={
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=8, length=16, piece="thrust1", emitVector={0,1,0},onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=8, length=16, piece="thrust3", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=8, length=16, piece="thrust2", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=8, length=16, piece="thrust4", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["corfink"].id] = {
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=35, piece="thrustb", onActive=true}},
+  corfink={
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=35, piece="thrustb", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["corveng"].id] = {
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=24, piece="thrust1", onActive=true}},
-    {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=24, piece="thrust2", onActive=true}},
+  corveng={
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=24, piece="thrust1", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=24, piece="thrust2", onActive=true, priority=2, noIconDraw=true}},
   },
   
   --T2 ARM
-  [UnitDefNames["corgripn"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.7, length=60, piece="thrusta", onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.7, length=60, piece="thrustb", onActive=true}},
+  corgripn={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.7, length=60, piece="thrusta", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.7, length=60, piece="thrustb", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["blade"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.7, length=28, piece="thrust", onActive=true}},
+  blade={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.7, length=28, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armcybr"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=60, piece="thrusta", onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=60, piece="thrustb", onActive=true}},
+  armcybr={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=60, piece="thrusta", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=60, piece="thrustb", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armaca"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=8, length=30, piece="thrust", onActive=true}},
+  armaca={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=8, length=30, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armawac"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=50, piece="thrust", onActive=true}},
+  armawac={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=50, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armdfly"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=60, piece="thrusta", onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=60, piece="thrustb", onActive=true}},
+  armdfly={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=60, piece="thrusta", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=60, piece="thrustb", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armbrawl"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.7, length=15, piece="thrust1", onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.7, length=15, piece="thrust2", onActive=true}},
+  armbrawl={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.7, length=15, piece="thrust1", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.7, length=15, piece="thrust2", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armlance"].id] = {
-   {class='AirJet',options={color={0.1,0.4,0.6}, width=5, length=65, piece="thrust1", onActive=true}},
-   {class='AirJet',options={color={0.1,0.4,0.6}, width=5, length=65, piece="thrust2", onActive=true}},
+  armlance={
+   {class='AirJet',options={color={0.1,0.4,0.6}, width=5, length=65, piece="thrust1", onActive=true, priority=2, noIconDraw=true}},
+   {class='AirJet',options={color={0.1,0.4,0.6}, width=5, length=65, piece="thrust2", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armpnix"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=8, length=75, piece="thrusta", onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=8, length=75, piece="thrustb", onActive=true}},
+  armpnix={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=8, length=75, piece="thrusta", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=8, length=75, piece="thrustb", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armhawk"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=6, length=45, piece="thrust", onActive=true}},
+  armhawk={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=6, length=45, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
   
   --T2 CORE
-  
-  [UnitDefNames["corhurc"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=10, length=80, piece="thrustb", onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=6, length=60, piece="thrusta1", onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=6, length=60, piece="thrusta2", onActive=true}},
+  corhurc={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=10, length=80, piece="thrustb", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=6, length=60, piece="thrusta1", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=6, length=60, piece="thrusta2", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["corvamp"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=65, piece="thrusta", onActive=true}},
+  corvamp={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=3.5, length=65, piece="thrusta", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["cortitan"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=5, length=65, piece="thrustb", onActive=true}},
+  cortitan={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=5, length=65, piece="thrustb", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["corape"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=8, length=28, piece="thrust1b", emitVector= {0,1,0}, onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=8, length=28, piece="thrust2b", emitVector= {0,1,0}, onActive=true}},
+  corape={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=8, length=28, piece="thrust1b", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=8, length=28, piece="thrust2b", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["corcrw"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=16, length=28, piece="thrustrra", emitVector= {0,1,0},onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=16, length=28, piece="thrustrla", emitVector= {0,1,0}, onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=12, length=28, piece="thrustfra", emitVector= {0,1,0}, onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=12, length=28, piece="thrustfla", emitVector= {0,1,0}, onActive=true}},
+  corcrw={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=16, length=28, piece="thrustrra", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=16, length=28, piece="thrustrla", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=12, length=28, piece="thrustfra", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=12, length=28, piece="thrustfla", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armsl"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=16, length=28, piece="thrustrra", emitVector= {0,1,0},onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=16, length=28, piece="thrustrla", emitVector= {0,1,0}, onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=12, length=28, piece="thrustfra", emitVector= {0,1,0}, onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=12, length=28, piece="thrustfla", emitVector= {0,1,0}, onActive=true}},
+  armsl={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=16, length=28, piece="thrustrra", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=16, length=28, piece="thrustrla", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=12, length=28, piece="thrustfra", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=12, length=28, piece="thrustfla", emitVector={0,1,0}, onActive=true, priority=2, noIconDraw=true}},
   },  
-  [UnitDefNames["cortitan"].id] = {
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=10, length=52, piece="thrustb", onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=6, length=35, piece="thrusta1", onActive=true}},
-    {class='AirJet',options={color={0.1,0.4,0.6}, width=6, length=35, piece="thrusta2", onActive=true}},
+  cortitan={
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=10, length=52, piece="thrustb", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=6, length=35, piece="thrusta1", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.1,0.4,0.6}, width=6, length=35, piece="thrusta2", onActive=true, priority=2, noIconDraw=true}},
   },
+
   --SEAPLANE ARM
-  
-  [UnitDefNames["armcsa"].id] = {
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=8, length=30, piece="thrusta", onActive=true}},
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=6, length=20, piece="thrustb", onActive=true}},
+  armcsa={
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=8, length=30, piece="thrusta", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=6, length=20, piece="thrustb", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armsfig"].id] = {
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=4, length=25, piece="thrust", onActive=true}},
+  armsfig={
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=4, length=25, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armseap"].id] = {
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=6, length=45, piece="thrust", onActive=true}},
+  armseap={
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=6, length=45, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armsehak"].id] = {
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=3.5, length=50, piece="thrust", onActive=true}},
+  armsehak={
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=3.5, length=50, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["armsb"].id] = {
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=4.7, length=70, piece="thrustc", onActive=true}},
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=2.7, length=25, piece="thrusta", onActive=true}},
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=2.7, length=25, piece="thrustb", onActive=true}},
+  armsb={
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=4.7, length=70, piece="thrustc", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=2.7, length=25, piece="thrusta", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=2.7, length=25, piece="thrustb", onActive=true, priority=2, noIconDraw=true}},
   },
+
   --SEAPLANE CORE
-  [UnitDefNames["corsfig"].id] = {
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=3, length=42, piece="thrust", onActive=true}},
+  corsfig={
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=3, length=42, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["corseap"].id] = {
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=3, length=42, piece="thrust", onActive=true}},
+  corseap={
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=3, length=42, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["corawac"].id] = {
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=4, length=50, piece="thrust", onActive=true}},
+  corawac={
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=4, length=50, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["corhunt"].id] = {
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=4, length=50, piece="thrust", onActive=true}},
+  corhunt={
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=4, length=50, piece="thrust", onActive=true, priority=2, noIconDraw=true}},
   },
-  [UnitDefNames["corsb"].id] = {
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=3.5, length=76, piece="thrusta", onActive=true}},
-    {class='AirJet',options={color={0.2,0.8,0.2}, width=3.5, length=76, piece="thrustb", onActive=true}},
+  corsb={
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=3.5, length=76, piece="thrusta", onActive=true, priority=2, noIconDraw=true}},
+    {class='AirJet',options={color={0.2,0.8,0.2}, width=3.5, length=76, piece="thrustb", onActive=true, priority=2, noIconDraw=true}},
   },
-
-
- }
-
-effectUnitDefsXmas = {}
-
-local levelScale = {
-    1,
-    1.1,
-    1.2,
-    1.25,
-    1.3,
 }
 
--- load presets from unitdefs
-for i=1,#UnitDefs do
-    local unitDef = UnitDefs[i]
-    
-    if unitDef.customParams and unitDef.customParams.commtype then
-        local s = levelScale[tonumber(unitDef.customParams.level) or 1]
-        if unitDef.customParams.commtype == "1" then
-            effectUnitDefsXmas[unitDef.name] = {
-                {class='SantaHat', options={color={0,0.7,0,1}, pos={0,4*s,0.35*s}, emitVector={0.3,1,0.2}, width=2.7*s, height=6*s, ballSize=0.7*s, piece="head"}},
-            }
-        elseif unitDef.customParams.commtype == "2" then
-            effectUnitDefsXmas[unitDef.name] = {
-                {class='SantaHat', options={pos={0,6*s,2*s}, emitVector={0.4,1,0.2}, width=2.7*s, height=6*s, ballSize=0.7*s, piece="head"}},
-            }
-        elseif unitDef.customParams.commtype == "3" then 
-            effectUnitDefsXmas[unitDef.name] = {
-                {class='SantaHat', options={color={0,0.7,0,1}, pos={1.5*s,4*s,0.5*s}, emitVector={0.7,1.6,0.2}, width=2.2*s, height=6*s, ballSize=0.7*s, piece="head"}},
-            }
-        elseif unitDef.customParams.commtype == "4" then 
-            effectUnitDefsXmas[unitDef.name] = {
-                {class='SantaHat', options={pos={0,3.8*s,0.35*s}, emitVector={0,1,0}, width=2.7*s, height=6*s, ballSize=0.7*s, piece="head"}},
-            }
-        elseif unitDef.customParams.commtype == "5" then 
-            effectUnitDefsXmas[unitDef.name] = {
-                {class='SantaHat', options={color={0,0,0.7,1}, pos={0,0,0}, emitVector={0,1,0.1}, width=2.7*s, height=6*s, ballSize=0.7*s, piece="hat"}},
-            }        
-        elseif unitDef.customParams.commtype == "6" then 
-            effectUnitDefsXmas[unitDef.name] = {
-                {class='SantaHat', options={color={0,0,0.7,1}, pos={0,0,0}, emitVector={0,1,-0.1}, width=4.05*s, height=9*s, ballSize=1.05*s, piece="hat"}},
-            }        
-        end
-    end
-    if unitDef.customParams then
-        local fxTableStr = unitDef.customParams.lups_unit_fxs
-        if fxTableStr then
-            local fxTableFunc = loadstring("return "..fxTableStr)
-            local fxTable = fxTableFunc()
-            effectUnitDefs[unitDef.name] = effectUnitDefs[unitDef.name] or {}
-            for i=1,#fxTable do    -- for each item in preset table
-                local toAdd = presets[fxTable[i]]
-                for i=1,#toAdd do
-                    table.insert(effectUnitDefs[unitDef.name],toAdd[i])    -- append to unit's lupsFX table
-                end
-            end
-        end
-    end
-end
+ --// COMMANDER XMAS HATS //--------------------------
+ effectUnitDefsXmas={
+--todo
+}
+
+     
