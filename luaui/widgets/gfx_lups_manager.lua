@@ -82,7 +82,6 @@ local registeredUnits = {}	-- all finished units - prevents partial unbuild then
 local function AddFX(unitname,fx)
   local ud = UnitDefNames[unitname]
   --// Seasonal lups stuff
-
   if ud then
     UnitEffects[ud.id] = fx
   end
@@ -181,6 +180,7 @@ local function UnitFinished(_,unitID,unitDefID)
   registeredUnits[unitID] = true
 
   local effects = UnitEffects[unitDefID]
+
   if (effects) then
     for i=1,#effects do
       local fx = effects[i]
@@ -209,7 +209,6 @@ end
 
 local function UnitDestroyed(_,unitID,unitDefID)
   registeredUnits[unitID] = nil
-
   ClearFxs(unitID)
 end
 

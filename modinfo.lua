@@ -1,10 +1,10 @@
 return {
-  name='Balanced Annihilation Reloaded',
-  description='Balanced Annihilation Reloaded',
-  shortname='BAR',
+  name='Iron',
+  description='Iron',
+  shortname='Fe',
   version='$VERSION',
   mutator='Official',
-  game='BAR',
-  shortGame='BAR',
+  game='Fe',
+  shortGame='Fe',
   modtype=1,
 }

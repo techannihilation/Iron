@@ -1,9 +1,9 @@
 --------------------------------------------------------------------------------
 function widget:GetInfo()
     return {
-        name      = "Anti Ranges (TechA)",
+        name      = "Anti Ranges",
         desc      = "Draws circle to show anti defence ranges (options: /antiranges_glow, antiranges_fade)",
-        author    = "[teh]decay, Floris",
+        author    = "[teh]decay, Floris, Nixtux",
         date      = "25 january 2015",
         license   = "GNU GPL, v2 or later",
         version   = 6,

@@ -1019,6 +1019,15 @@ function applyOptionValue(i, skipRedrawWindow)
 			saveOptionValue('Snow', 'snow', 'setAutoReduce', {'autoReduce'}, options[i].value)
 		elseif id == 'darkenmap_darkenfeatures' then
 			saveOptionValue('Darken map', 'darkenmap', 'setDarkenFeatures', {'darkenFeatures'}, options[i].value)
+		elseif id == 'ssao_strength' then
+			saveOptionValue('SSAO', 'ssao', 'setStrength', {'strength'}, value)
+		elseif id == 'ssao_radius' then
+			saveOptionValue('SSAO', 'ssao', 'setRadius', {'radius'}, value)
+		elseif id == 'bloomdeferredbrightness' then
+			saveOptionValue('Bloom Shader Deferred', 'bloomdeferred', 'setBrightness', {'glowAmplifier'}, value)
+		elseif id == 'bloomdeferredsize' then
+			saveOptionValue('Bloom Shader Deferred', 'bloomdeferred', 'setBlursize', {'globalBlursizeMult'}, value)
+		elseif id == 'bloombrightness' then
 		elseif id == 'teamplatter_skipownteam' then
 			saveOptionValue('TeamPlatter', 'teamplatter', 'setSkipOwnTeam', {'skipOwnTeam'}, options[i].value)
 		elseif id == 'enemyspotter_highlight' then
@@ -1676,6 +1685,13 @@ end
 function loadAllWidgetData()
 	--loadWidgetData("Health Bars", "healthbarsscale", {'barScale'})
 
+	loadWidgetData("SSAO", "ssao_strength", {'strength'})
+	loadWidgetData("SSAO", "ssao_radius", {'radius'})
+
+	loadWidgetData("Bloom Shader Deferred", "bloomdeferredbrightness", {'glowAmplifier'})
+	loadWidgetData("Bloom Shader Deferred", "bloomdeferredsize", {'qualityBlursizeMult'})
+	loadWidgetData("Bloom Shader Deferred", "bloomdeferredquality", {'qualityPreset'})
+
 	loadWidgetData("Bloom Shader", "bloombrightness", {'basicAlpha'})
 	loadWidgetData("Bloom Shader", "bloomhighlights", {'drawHighlights'})
 --[[
@@ -1718,9 +1734,9 @@ function loadAllWidgetData()
 	loadWidgetData("Fancy Selected Units", "fancyselectedunits_baseopacity", {'baseOpacity'})
 	loadWidgetData("Fancy Selected Units", "fancyselectedunits_teamcoloropacity", {'teamcolorOpacity'})
 	loadWidgetData("Fancy Selected Units", "fancyselectedunits_secondline", {'showSecondLine'})
-
+	--]]
 	loadWidgetData("Voice Notifs", "voicenotifs_volume", {'volume'})
-
+	--[[
 	loadWidgetData("Defense Range", "defrange_allyair", {'enabled','ally','air'})
 	loadWidgetData("Defense Range", "defrange_allyground", {'enabled','ally','ground'})
 	loadWidgetData("Defense Range", "defrange_allynuke", {'enabled','ally','nuke'})
@@ -1784,6 +1800,9 @@ function init()
 		{id="bloombrightness", group="gfx", name=widgetOptionColor.."   brightness", type="slider", min=0.25, max=0.55, step=0.05, value=0.4, description=''},
 		{id="bloomhighlights", group="gfx", name=widgetOptionColor.."   highlights", type="bool", value=false, description=''},
 
+		{id="bloomdeferred", group="gfx", widget="Bloom Shader Deferred", name="Bloom (unit)", type="bool", value=GetWidgetToggleValue("Bloom Shader Deferred"), description='Unit highlights and lights will glow.\n\n(via deferred rendering = less lag)'},
+		{id="bloomdeferredbrightness", group="gfx", name=widgetOptionColor.."   brightness", type="slider", min=0.4, max=1.1, step=0.05, value=1, description=''},
+
 		{id="darkenmap", group="gfx", name="Darken map", min=0, max=0.5, step=0.01, type="slider", value=0, description='Darkens the whole map (not the units)\n\nRemembers setting per map\nUse /resetmapdarkness if you want to reset all stored map settings'},
 		{id="darkenmap_darkenfeatures", group="gfx", name=widgetOptionColor.."   Darken features with map", type="bool", value=false, description='Darkens features (trees, wrecks, ect..) along with darken map slider above\n\nNOTE: This setting can be CPU intensive because it cycles through all visible features \nand renders then another time.'},
 
@@ -1807,7 +1826,9 @@ function init()
 		{id="lupsrefraction", group="gfx", name="Toggle Lups Refraction Pass", type="bool", value=tonumber(Spring.GetConfigInt("lupsenablerefraction",1) or 1) == 1, description='The settings seem only relevant near water\nand disabling them reduces draw passes\n\nLuaUI RESTART NEEDED'},
 		{id="lupsreflection", group="gfx", name="Toggle Lups Reflection Pass", type="bool", value=tonumber(Spring.GetConfigInt("lupsenablereflection",1) or 1) == 1, description='The settings seem only relevant near water\nand disabling them reduces draw passes\n\nLuaUIRESTART NEEDED'},
 
-		{id="ssao", group="gfx", widget="Screen-Space Ambient Occlusion", name="Screen Space Ambient Occlusion", type="bool", value=GetWidgetToggleValue("Screen-Space Ambient Occlusion"), description='Toggles Screen Space Ambient Occlusion\n(OMG very expensive)'},
+		{id="ssao", group="gfx", widget="SSAO", name="SSAO", type="bool", value=GetWidgetToggleValue("SSAO"), description='Screen-Space Ambient Occlusion.'},
+		{id="ssao_strength", group="gfx", name=widgetOptionColor.."   strength", type="slider", min=1, max=5, step=0.05, value=3.5, description=''},
+		{id="ssao_radius", group="gfx", name=widgetOptionColor.."   radius", type="slider", min=4, max=7, step=1, value=4, description=''},
 
 		{id="outline", group="gfx", widget="Outline", name="Unit outline (expensive)", type="bool", value=GetWidgetToggleValue("Outline"), description='Adds a small outline to all units which makes them crisp\n\nLimits total outlined units to 1000.\nStops rendering outlines when average fps falls below 13.'},
 		{id="outline_size", group="gfx", name=widgetOptionColor.."   thickness", min=0.8, max=1.5, step=0.05, type="slider", value=1, description='Set the size of the outline'},
@@ -1852,8 +1873,8 @@ function init()
 		--{id="sndairabsorption", group="snd", name="Air absorption", type="slider", min=0, max=0.5, step=0.01, value=tonumber(Spring.GetConfigInt("snd_airAbsorption",1) or.1)},
 		--{id="buildmenusounds", group="snd", name="Buildmenu click sounds", type="bool", value=(WG['red_buildmenu']~=nil and WG['red_buildmenu'].getConfigPlaySounds~= nil and WG['red_buildmenu'].getConfigPlaySounds()), description='Plays a sound when clicking on orders or buildmenu icons'},
 
-        --{id="voicenotifs", group="snd", widget="Voice Notifs", name="Voice notifications", type="bool", value=GetWidgetToggleValue("Voice Notifs"), description='Plays various voice notifications\n\nAdjust volume with the interface volume slider'},
-		--{id="voicenotifs_volume", group="snd", name=widgetOptionColor.."   volume", type="slider", min=0.05, max=1, step=0.05, value=1, description='NOTE: It uses interface volume channel'},
+        {id="voicenotifs", group="snd", widget="Voice Notifs", name="Voice notifications", type="bool", value=GetWidgetToggleValue("Voice Notifs"), description='Plays various voice notifications\n\nAdjust volume with the interface volume slider'},
+		{id="voicenotifs_volume", group="snd", name=widgetOptionColor.."   volume", type="slider", min=0.05, max=1, step=0.05, value=1, description='NOTE: It uses interface volume channel'},
 
 		-- CONTROL
 		{id="camera", group="control", name="Camera", type="select", options={'fps','overhead','spring','rot overhead','free'}, value=(tonumber((Spring.GetConfigInt("CamMode",1)+1) or 2))},
@@ -1979,7 +2000,7 @@ function init()
 	loadAllWidgetData()
 
 	-- add sound notification widget sound toggle options
-	--[[
+
 	if widgetHandler.knownWidgets["Voice Notifs"] then
 		local soundList
 		if WG['voicenotifs'] ~= nil then
@@ -2006,7 +2027,7 @@ function init()
 		options[getOptionByID('voicenotifs')] = nil
 		options[getOptionByID('voicenotifs_volume')] = nil
 	end
-
+	--[[
 	-- cursors
 	if (WG['cursors'] == nil) then
 		options[getOptionByID('cursor')] = nil
@@ -2025,7 +2046,23 @@ function init()
 		options[getOptionByID('cursor')].options = cursorsets
 		options[getOptionByID('cursor')].value = cursor
 	end
-
+	--]]
+	if widgetHandler.knownWidgets["SSAO"] == nil then
+		options[getOptionByID('ssao')] = nil
+		options[getOptionByID('ssao_strength')] = nil
+		options[getOptionByID('ssao_radius')] = nil
+	end
+	if widgetHandler.knownWidgets["Bloom Shader"] == nil then
+		options[getOptionByID('bloombrightness')] = nil
+		options[getOptionByID('bloomsize')] = nil
+		options[getOptionByID('bloomquality')] = nil
+	end
+	if widgetHandler.knownWidgets["Bloom Shader Deferred"] == nil then
+		options[getOptionByID('bloomdeferredbrightness')] = nil
+		options[getOptionByID('bloomdeferredsize')] = nil
+		options[getOptionByID('bloomdeferredquality')] = nil
+	end
+    --[[
 	if Spring.GetModOptions == nil or (tonumber(Spring.GetModOptions().barmodels) or 0) == 0 then
 		options[getOptionByID('normalmapping')] = nil
 	end

@@ -1,24 +1,30 @@
 -- $Id$
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-local windLocIDs = {[0] = -2, [1] = -2}
 
-local function DrawFeature(featureID, material, drawMode) -- UNUSED!
-  local etcLocIdx = (drawMode == 5) and 1 or 0
-  local curShader = (drawMode == 5) and material.deferredShader or material.standardShader
-
-  if windLocIDs[etcLocIdx] == -2 then
-    windLocIDs[etcLocIdx] = gl.GetUniformLocation(curShader, "wind")
-  end
+local function DrawFeature(featureID, featureDefID, material, drawMode, luaShaderObj) -- UNUSED!
   local wx, wy, wz = Spring.GetWind()
-  gl.Uniform(windLocIDs[etcLocIdx], wx, wy, wz)
+  luaShaderObj:SetUniformAlways("wind", wx, wy, wz)
+
   return false
 end
 
+local function SunChanged(curShaderObj)
+	curShaderObj:SetUniformAlways("shadowDensity", gl.GetSun("shadowDensity" ,"unit"))
+
+	curShaderObj:SetUniformAlways("sunAmbient", gl.GetSun("ambient" ,"unit"))
+	curShaderObj:SetUniformAlways("sunDiffuse", gl.GetSun("diffuse" ,"unit"))
+	curShaderObj:SetUniformAlways("sunSpecular", gl.GetSun("specular" ,"unit"))
+	--gl.Uniform(gl.GetUniformLocation(curShader, "sunSpecularExp"), gl.GetSun("specularExponent" ,"unit"))
+end
+
+
+local default_lua = VFS.Include("materials/Shaders/default.lua")
+
 local materials = {
 	feature_tree = {
-		shader    = include("ModelMaterials/Shaders/default.lua"),
-		deferred  = include("ModelMaterials/Shaders/default.lua"),
+		shader    = default_lua,
+		deferred  = default_lua,
 		shaderDefinitions = {
 			"#define use_normalmapping",
 			"#define deferred_mode 0",
@@ -26,6 +32,7 @@ local materials = {
 		deferredDefinitions = {
 			--"#define use_normalmapping", --very expensive for trees (too much overdraw)
 			"#define deferred_mode 1",
+			"#define MAT_IDX 129",
 		},
 		shaderPlugins = {
 			VERTEX_GLOBAL_NAMESPACE = [[
@@ -33,7 +40,7 @@ local materials = {
 					vec2 wind;
 					wind.x = sin(period * 5.0);
 					wind.y = cos(period * 5.0);
-					return wind * 10.0f;
+					return wind * 12.0f;
 				}
 			]],
 			VERTEX_PRE_TRANSFORM = [[
@@ -80,7 +87,7 @@ local materials = {
 				//gl_FragColor.r=1.0;
 			]]
 		},
-		force     = false, --// always use the shader even when normalmapping is disabled
+		force     = true, --// always use the shader even when normalmapping is disabled
 		feature = true, --// This is used to define that this is a feature shader
 		usecamera = false,
 		culling   = GL.BACK,
@@ -88,11 +95,11 @@ local materials = {
 			[0] = '%%FEATUREDEFID:0',
 			[1] = '%%FEATUREDEFID:1',
 			[2] = '$shadow',
-			[3] = '$specular',
 			[4] = '$reflection',
 			[5] = '%NORMALTEX',
 		},
 		--DrawFeature = DrawFeature,
+		SunChanged = SunChanged,
 	},
 }
 
@@ -101,15 +108,39 @@ local materials = {
 -- affected unitdefs
 
 local featureMaterials = {}
-local featureNameStubs = {"ad0_", "btree", "art"} -- all of the 0ad, beherith and artturi features start with these.
+local featureNameStubs = {
+							"ad0_",
+							"btree",
+							"art",
+							"bush",
+							"tree",
+							"vegetation",
+							"vegitation",
+							"baobab",
+							"aleppo",
+							"pine",
+							"senegal",
+							"palm",
+							"shrub",
+							"bloodthorn",
+							"birch",
+							"maple",
+							"oak",
+							"fern",
+							"grass",
+							"weed",
+							"plant",
+							"palmetto"
+						} -- This list should cover all vegetative features in spring features
 local tex1_to_normaltex = {}
 -- All feature defs that contain the string "aleppo" will be affected by it
+local echoline = ''
 for id, featureDef in pairs(FeatureDefs) do
 	Spring.PreloadFeatureDefModel(id)
 	for _,stub in ipairs (featureNameStubs) do
-		if featureDef.model.textures and featureDef.model.textures.tex1 and featureDef.name:find(stub) and featureDef.name:find(stub) == 1 then --also starts with
+		if featureDef.model.textures and featureDef.model.textures.tex1 and featureDef.name and featureDef.name:find(stub) and featureDef.name:find(stub) == 1 then --also starts with
 			--if featureDef.customParam.normaltex then
-				Spring.Echo('Feature',featureDef.name,'seems like a nice tree, assigning the default normal texture to it.')
+				echoline = echoline..(echoline ~= '' and ', ' or '')..featureDef.name
 				if featureDef.name:find('btree') == 1 then --beherith's old trees suffer if they get shitty normals
 					featureMaterials[featureDef.name] = {"feature_tree", NORMALTEX = "unittextures/blank_normal.tga"}
 				else
@@ -125,12 +156,19 @@ for id, featureDef in pairs(FeatureDefs) do
 		end
 	end
 end
+if echoline ~= '' then
+	--Spring.Echo('Adding normal texture to trees: '..echoline)
+end
 
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
-return materials, featureMaterials
+if Spring.GetConfigInt("TreeWind",1) == 0 then
+	return {}, {}
+else
+	return materials, featureMaterials
+end
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
