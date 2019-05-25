@@ -110,6 +110,10 @@ effectUnitDefs = {
     {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=24, piece="thrust1", onActive=true, priority=2, noIconDraw=true}},
     {class='AirJet',options={color={0.7,0.4,0.1}, width=3, length=24, piece="thrust2", onActive=true, priority=2, noIconDraw=true}},
   },
+  bladew = {
+    {class='Ribbon', options={width=1, size=8, piece="leftwingtip", priority=4, noIconDraw = true}},
+    {class='Ribbon', options={width=1, size=8, piece="rightwingtip", priority=4, noIconDraw = true}},
+  },
   
   --T2 ARM
   corgripn={
