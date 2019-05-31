@@ -12,8 +12,7 @@ function widget:GetInfo()
 end
 local NeededFrameworkVersion = 8
 local CanvasX,CanvasY = 1440,900 --resolution in which the widget was made (for 1:1 size)
-local iconsizeMaster = 96
-local iconsize = iconsizeMaster
+local iconsize = 96
 local oldUnitpicsDir = LUAUI_DIRNAME.."Images/oldunitpics/"
 local unitDefID
 local CMD_MORPH = 31410
@@ -199,18 +198,14 @@ local function getEditedCurrentTooltip()
     end
     if MorphDefID then
     	unitDefID=MorphDefID
-        iconsize=iconsizeMaster
     elseif tooltipID then
         unitDefID=Spring.GetUnitDefID(tooltipID)
-        iconsize=iconsizeMaster
     elseif WG["hoverID"] and WG["hoverID"] < 0 then
     	unitDefID=math.abs(WG["hoverID"])
-    	iconsize=iconsizeMaster
     elseif Spring.GetSelectedUnitsCount() == 1 then
     	unitID=Spring.GetSelectedUnits()[1]
     	if Spring.ValidUnitID(unitID) then
     		unitDefID=Spring.GetUnitDefID(unitID)
-    		iconsize=iconsizeMaster
     	end
     else
     	unitDefID=nil
@@ -241,7 +236,6 @@ local function createtooltip(r)
 			end
 		end
 	}
-	
 	local background = {"rectangle",
 		px=r.px,py=r.py,
 		sx=r.sx,sy=r.sy,
@@ -302,7 +296,8 @@ function widget:DrawScreen()
 		else
 			gl.Texture('#' .. unitDefID) -- Screen.vsx,Screen.vsy
 		end
-  		gl.TexRect(tooltip.background.px, Screen.vsy - tooltip.background.py - iconsize, tooltip.background.px + iconsize, Screen.vsy - tooltip.background.py)
+		iconsize = tooltip.background.sy
+  		gl.TexRect(tooltip.background.px, Screen.vsy - tooltip.background.py - iconsize, tooltip.background.px +iconsize , Screen.vsy - tooltip.background.py)
   		gl.Texture(false)
   	end
 end
@@ -333,7 +328,7 @@ function widget:GetConfigData() --save config
 	if (PassedStartupCheck) then
 		local vsy = Screen.vsy
 		local unscale = CanvasY/vsy --needed due to autoresize, stores unresized variables
-		if (tooltip.background.px * unscale > -50) or (tooltip.background.py * unscale > -50) then
+		if (tooltip.background.px * unscale < -50) or (tooltip.background.py * unscale < -50) then
 			Config.tooltip.px = tooltip.background.px * unscale
 			Config.tooltip.py = tooltip.background.py * unscale
 			return {Config=Config}
